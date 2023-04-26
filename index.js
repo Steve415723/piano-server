@@ -5,6 +5,7 @@ const io = new Server({cors:{origin:"*"}})
 console.log(`웹소켓 서버 실행 완료!`)
 
 let clients = {}
+let idlist = {}
 
 io.on("connection",(socket) => {
     console.log(`새로운 클라이언트: ${socket.id}`)
@@ -12,12 +13,14 @@ io.on("connection",(socket) => {
     socket.on("join",(message) => {
         console.log(`새로운 플레이어: ${message.name}(${message.id})`)
         clients[message.id] = {name:message.name,color:message.color}
+        idlist[socket.id] = message.id
         io.emit("join",clients)
     })
 
     socket.on("leave",(message) => {
         console.log(`퇴장한 플레이어: ${message.name}(${message.id})`)
         delete clients[message.id]
+        delete idlist[socket.id]
         io.emit("leave",clients)
     })
 
@@ -37,6 +40,13 @@ io.on("connection",(socket) => {
 
     socket.on("up",(message) => {
         socket.broadcast.emit("up",message)
+    })
+
+    socket.on("disconnect",() => {
+        console.log(`연결을 끊은 클라이언트: ${socket.id}(${idlist[socket.id]})`)
+        delete clients[idlist[socket.id]]
+        delete idlist[socket.id]
+        io.emit("leave",clients)
     })
 })
 
