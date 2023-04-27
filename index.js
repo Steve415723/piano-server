@@ -3,7 +3,8 @@ const http = require('http').createServer(app);
 const io = require("socket.io")(http,{
     cors: {
         origin: "*"
-    }
+    },
+    pingTimeout: 60000
 })
 
 console.log(`웹소켓 서버 실행 완료!`)
