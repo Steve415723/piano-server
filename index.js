@@ -1,6 +1,6 @@
 const { Server } = require("socket.io")
 
-const io = new Server({cors:{origin:"*"},pingTimeout:300000})
+const io = new Server({origins:["*"],pingTimeout:300000})
 
 console.log(`웹소켓 서버 실행 완료!`)
 
