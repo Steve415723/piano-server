@@ -1,6 +1,10 @@
-const { Server } = require("socket.io")
-
-const io = new Server({origins:["*"],pingTimeout:300000})
+const app = require("express")()
+const http = require('http').createServer(app);
+const io = require("socket.io")(http,{
+    cors: {
+        origin: "*"
+    }
+})
 
 console.log(`웹소켓 서버 실행 완료!`)
 
