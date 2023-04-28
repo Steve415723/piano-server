@@ -47,13 +47,7 @@ server.on("connection",(ws, req) => {
             clients[data.id].name = data.name
             broadcastall(JSON.stringify(data))
         }
-        else if (data.type == "down") {
-            broadcast(JSON.stringify(data),ws)
-        }
-        else if (data.type == "up") {
-            broadcast(JSON.stringify(data),ws)
-        }
-        else if (data.type == "attack") {
+        else if (["down","up","attack","startplay","stopplay","updateplay"].includes(data.type)) {
             broadcast(JSON.stringify(data),ws)
         }
     })
