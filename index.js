@@ -53,6 +53,9 @@ server.on("connection",(ws, req) => {
         else if (data.type == "up") {
             broadcast(JSON.stringify(data),ws)
         }
+        else if (data.type == "attack") {
+            broadcast(JSON.stringify(data),ws)
+        }
     })
 
     ws.on("close",() => {
