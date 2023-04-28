@@ -6,7 +6,7 @@ console.log(`웹소켓 서버 실행 완료!`)
 let clients = {}
 let idlist = {}
 
-const server = new Server({port:9090})
+const server = new Server({port:5000})
 
 function broadcastall(message) {
     server.clients.forEach(client => {
