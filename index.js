@@ -48,10 +48,10 @@ server.on("connection",(ws, req) => {
             broadcastall(JSON.stringify(data))
         }
         else if (data.type == "down") {
-            broadcast(JSON.stringify(data),true,ws)
+            broadcast(JSON.stringify(data),ws)
         }
         else if (data.type == "up") {
-            broadcast(JSON.stringify(data),true,ws)
+            broadcast(JSON.stringify(data),ws)
         }
     })
 
